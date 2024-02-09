@@ -5,8 +5,6 @@ import { OrthographyPage, ProsConsPage, ProsConsStreamPage, TranslatePage, TextT
 
 
 
-
-
 export const menuRoutes = [
     {
         to: "/orthography",

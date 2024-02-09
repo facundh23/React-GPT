@@ -1,4 +1,5 @@
 import { GptMessages, MyMessages } from '../../components/chat-bubbles'
+import { TypingLoader } from '../../components/loaders/TypingLoader'
 
 export const OrthographyPage = () => {
     return (
@@ -7,6 +8,7 @@ export const OrthographyPage = () => {
                 <div className='grid grid-cols-12 gap-y-2'>
                     <GptMessages text='Hola, puedes escribir tu texto en español, y te ayudo con las correcciones' />
                     <MyMessages text='Hola' />
+                    <TypingLoader className='fade-in' />
                 </div>
             </div>
         </div>
