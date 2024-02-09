@@ -1,9 +1,15 @@
-import React from 'react'
+import { GptMessages, MyMessages } from '../../components/chat-bubbles'
 
-const OrthographyPage = () => {
+export const OrthographyPage = () => {
     return (
-        <div>OrthographyPage</div>
+        <div className='chat-container'>
+            <div className='chat-messages'>
+                <div className='grid grid-cols-12 gap-y-2'>
+                    <GptMessages text='Hola, puedes escribir tu texto en español, y te ayudo con las correcciones' />
+                    <MyMessages text='Hola' />
+                </div>
+            </div>
+        </div>
     )
 }
 
-export default OrthographyPage

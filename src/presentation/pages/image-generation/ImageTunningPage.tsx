@@ -1,9 +1,8 @@
 import React from 'react'
 
-const ImageTunningPage = () => {
+export const ImageTunningPage = () => {
     return (
         <div>ImageTunningPage</div>
     )
 }
 
-export default ImageTunningPage

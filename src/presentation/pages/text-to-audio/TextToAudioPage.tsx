@@ -1,9 +1,7 @@
 import React from 'react'
 
-const TextToAudioPage = () => {
+export const TextToAudioPage = () => {
     return (
         <div>TextToAudioPage</div>
     )
 }
-
-export default TextToAudioPage

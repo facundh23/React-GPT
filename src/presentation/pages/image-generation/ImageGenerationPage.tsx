@@ -1,9 +1,8 @@
 import React from 'react'
 
-const ImageGenerationPage = () => {
+export const ImageGenerationPage = () => {
     return (
         <div>ImageGenerationPage</div>
     )
 }
 
-export default ImageGenerationPage

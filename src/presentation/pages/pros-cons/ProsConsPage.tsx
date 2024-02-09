@@ -1,9 +1,8 @@
 import React from 'react'
 
-const ProsConsPage = () => {
+export const ProsConsPage = () => {
     return (
         <div>ProsConsPage</div>
     )
 }
 
-export default ProsConsPage
