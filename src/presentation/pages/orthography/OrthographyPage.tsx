@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TypingLoader, TextMessageBox, GptMessages, MyMessages } from '../../components'
+import { TypingLoader, TextMessageBox, GptMessages, MyMessages, TextMessageBoxFile } from '../../components'
 
 interface Message {
     text: string;
@@ -14,11 +14,8 @@ export const OrthographyPage = () => {
     const handlePost = async (text: string) => {
         setIsLoading(true);
         setMessages((prev) => [...prev, { text: text, isGptMessage: false }]);
-
         //TODO Use case
-
         setIsLoading(false);
-
         // Todo añadir el mensaje isGptMessage en true
     }
     return (
@@ -26,7 +23,6 @@ export const OrthographyPage = () => {
             <div className='chat-messages'>
                 <div className='grid grid-cols-12 gap-y-2'>
                     <GptMessages text='Hola, puedes escribir tu texto en español, y te ayudo con las correcciones' />
-
                     {
                         messages.map((message, index) => (
                             message.isGptMessage ? <GptMessages key={index} text='Open AI message' /> : <MyMessages key={index} text={message.text} />
@@ -41,13 +37,11 @@ export const OrthographyPage = () => {
                             </div>
                         )
                     }
-
-
-
                 </div>
             </div>
 
-            <TextMessageBox onSendMessage={handlePost} placeholder='Escribe tu texto aquí' disableCorrections />
+            {/* <TextMessageBox onSendMessage={handlePost} placeholder='Escribe tu texto aquí' disableCorrections /> */}
+            <TextMessageBoxFile onSendMessage={handlePost} placeholder='Escribe tu texto aquí' />
         </div>
     )
 }
