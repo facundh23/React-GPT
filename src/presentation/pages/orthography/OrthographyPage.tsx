@@ -5,6 +5,11 @@ import { orthographyUseCase } from '../../../core/use-case';
 interface Message {
     text: string;
     isGptMessage: boolean;
+    info?: {
+        userScore: number;
+        errors: string[];
+        message: string;
+    }
 }
 
 
@@ -20,7 +25,17 @@ export const OrthographyPage = () => {
 
 
         const data = await orthographyUseCase(text);
-        console.log(data);
+        if (!data.ok) {
+            setMessages((prev) => [...prev, { text: 'La correción no se pudo realizar correctamente', isGptMessage: true }]);
+        } else {
+            setMessages((prev) => [...prev, {
+                text: 'La correción no se pudo realizar correctamente', isGptMessage: true, info: {
+                    errors: data.errors,
+                    message: data.message,
+                    userScore: data.userScore,
+                }
+            }]);
+        }
         setIsLoading(false);
         // Todo añadir el mensaje isGptMessage en true
     }
