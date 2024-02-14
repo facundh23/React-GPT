@@ -7,6 +7,7 @@ interface Props {
 }
 
 export const GptOrthographyMessages: React.FC<Props> = ({ userScore, errors, message }) => {
+
     return (
         <div className='col-start-1 col-end-8 p-3 rounded-lg'>
             <div className='flex flex-row items-center'>
@@ -17,7 +18,7 @@ export const GptOrthographyMessages: React.FC<Props> = ({ userScore, errors, mes
                     <h3 className='text-3xl font-bold'>Puntaje: {userScore}</h3>
                     <p>{message}</p>
                     {
-                        errors.length === 0 ? <p>No se encontrar errores Perfecto!</p> : (
+                        errors && (errors.length === 0) ? <p>No se encontrar errores Perfecto!</p> : (
                             <>
                                 <h3 className='text-2xl font-bold'>Errores encontrados</h3>
                                 <ul>
