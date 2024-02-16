@@ -23,7 +23,7 @@ export const OrthographyPage = () => {
 
 
         const data = await orthographyUseCase(text);
-
+        console.log(data)
         if (!data.ok) {
             setMessages((prev) => [...prev, { text: 'La correción no se pudo realizar correctamente', isGptMessage: true }]);
         } else {
@@ -44,8 +44,8 @@ export const OrthographyPage = () => {
                 <div className='grid grid-cols-12 gap-y-2'>
                     <GptMessages text='Hola, puedes escribir tu texto en español, y te ayudo con las correcciones' />
                     {
-                        messages.map((message, index) => (
-                            message.isGptMessage ? <GptOrthographyMessages key={index} errors={message.info!.errors} message={message.info!.message} userScore={message.info!.userScore} /> : <MyMessages key={index} text={message.text} />
+                        messages && messages.map((message, index) => (
+                            message.isGptMessage ? <GptOrthographyMessages key={index} errors={message.info!.errors} userScore={message.info!.userScore} message={message.info!.message} /> : <MyMessages key={index} text={message.text} />
                         ))
                     }
 
