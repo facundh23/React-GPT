@@ -1,6 +1,6 @@
 
 
-export const ProsConsStreamUseCase = async (prompt: string) => {
+export async function* ProsConsStreamGeneratorUseCase(prompt:string) {
     try {
         const resp = await fetch(`${import.meta.env.VITE_GPT_API}/pros-cons-discusser-stream`, {
             method: 'POST',
@@ -15,7 +15,18 @@ export const ProsConsStreamUseCase = async (prompt: string) => {
         const reader = resp.body?.getReader();
         if(!reader) return null
 
-        return reader;
+        const decoder = new TextDecoder();
+        let text = '';
+        while(true){
+            const {value, done} = await reader.read();
+            if(done) {
+                break
+            };
+
+            const decodeChunk = decoder.decode(value,  { stream:true } );
+            text += decodeChunk;
+            yield text;
+        }
 
 
     } catch (error) {

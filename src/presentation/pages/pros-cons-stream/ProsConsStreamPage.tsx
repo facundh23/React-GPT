@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { GptMessages, MyMessages, TypingLoader, TextMessageBox } from '../../components';
-import { ProsConsStreamUseCase } from '../../../core/use-case';
-
+import { ProsConsStreamGeneratorUseCase } from '../../../core/use-case';
 
 
 interface Message {
@@ -10,43 +9,24 @@ interface Message {
 }
 
 export const ProsConsStreamPage = () => {
-
     const [isLoading, setIsLoading] = useState(false);
     const [messages, setMessages] = useState<Message[]>([])
 
     const handlePost = async (text: string) => {
         setIsLoading(true);
         setMessages((prev) => [...prev, { text: text, isGptMessage: false }]);
-
         //TODO Use case
-        const reader = await ProsConsStreamUseCase(text);
+        const stream = await ProsConsStreamGeneratorUseCase(text);
         setIsLoading(false);
+        setMessages((messages) => [...messages, { text: '', isGptMessage: true }]);
 
-        // Generar el ultimo mensaje
-
-        if(!reader) return;
-
-        const decoder = new TextDecoder();
-        let message = '';
-        setMessages((messages) => [...messages, {text:message, isGptMessage:true}]);
-
-        while(true) {
-            const {value, done} = await reader.read();
-            if(done){ 
-                break;
-            }
-            const decodedChunk = decoder.decode(value,{stream:true});
-            message += decodedChunk;
-
-            // Esto actualiza el ultimo mensaje
+        for await (const text of stream) {
             setMessages((messages) => {
                 const newMessages = [...messages];
-                newMessages[newMessages.length - 1].text = message;
-                return newMessages;
+                newMessages[newMessages.length - 1].text = text;
+                return newMessages
             })
         }
-
-
     }
     return (
         <div className='chat-container'>
