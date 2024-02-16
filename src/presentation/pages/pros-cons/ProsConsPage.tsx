@@ -55,8 +55,6 @@ export const ProsConsPage = () => {
                             message.isGptMessage ? <GptProConsMessages key={index} role={message.info!.role} content={message.info!.content} /> : <MyMessages key={index} text={message.text} />
                         ))
                     }
-
-
                     {
                         isLoading && (
                             <div className='col-start-1 col-end-12 fade-in'>
@@ -64,8 +62,6 @@ export const ProsConsPage = () => {
                             </div>
                         )
                     }
-
-
 
                 </div>
             </div>

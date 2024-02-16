@@ -11,7 +11,7 @@ export const ProsConsUseCase = async (prompt: string) => {
         });
         if (!resp.ok) throw new Error('No se pudo realizar la conexión');
         const data = await resp.json() as ProsConsResponse;
-        console.log(data)
+        
 
         return {
             ok:true,
