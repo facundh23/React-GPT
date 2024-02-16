@@ -16,7 +16,7 @@ export const GptProConsMessages: React.FC<Props> = ({ role, content }) => {
                 </div>
                 <div className='relative ml-3 text-sm bg-black bg-opacity-25 pt-3 pb-2 px-4 shadow rounded-xl'>
                     <h3 className='text-3xl font-bold'>Role: {role}</h3>
-                    <p>{ content && <Markdown>{content}</Markdown>}</p>
+                     {content && <Markdown>{content}</Markdown>}
                 </div>
             </div>
         </div>

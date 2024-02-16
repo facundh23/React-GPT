@@ -27,18 +27,17 @@ export const ProsConsPage = () => {
         //TODO Use case
         const data = await ProsConsUseCase(text);
         console.log(data)
-        if(!data.ok) {
-            setMessages((prev) => [...prev, {text:'La comparación no se pudo realizar correctamente', isGptMessage:true}])
-        } else {
+        if(!data.ok) return 
+        
             setMessages((prev) => [...prev, {
-                text:'La correción no se pudo realizar correctamente', 
+                text: data.content, 
                 isGptMessage:true,
                 info:{
                     role:data.role,
                     content:data.content
                 }
             }])
-        }
+        
 
         setIsLoading(false);
 
