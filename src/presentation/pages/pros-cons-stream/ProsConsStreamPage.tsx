@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { GptMessages, MyMessages, TypingLoader, TextMessageBox } from '../../components';
+import { ProsConsStreamUseCase } from '../../../core/use-case';
 
 
 
@@ -18,20 +19,44 @@ export const ProsConsStreamPage = () => {
         setMessages((prev) => [...prev, { text: text, isGptMessage: false }]);
 
         //TODO Use case
-
+        const reader = await ProsConsStreamUseCase(text);
         setIsLoading(false);
 
-        // Todo añadir el mensaje isGptMessage en true
+        // Generar el ultimo mensaje
+
+        if(!reader) return;
+
+        const decoder = new TextDecoder();
+        let message = '';
+        setMessages((messages) => [...messages, {text:message, isGptMessage:true}]);
+
+        while(true) {
+            const {value, done} = await reader.read();
+            if(done){ 
+                break;
+            }
+            const decodedChunk = decoder.decode(value,{stream:true});
+            message += decodedChunk;
+
+            // Esto actualiza el ultimo mensaje
+            setMessages((messages) => {
+                const newMessages = [...messages];
+                newMessages[newMessages.length - 1].text = message;
+                return newMessages;
+            })
+        }
+
+
     }
     return (
         <div className='chat-container'>
             <div className='chat-messages'>
                 <div className='grid grid-cols-12 gap-y-2'>
-                    <GptMessages text='Hola, puedes escribir tu texto en español, y te ayudo con las correcciones' />
+                    <GptMessages text='¿Qué deseas comparar hoy?' />
 
                     {
                         messages.map((message, index) => (
-                            message.isGptMessage ? <GptMessages key={index} text='Open AI message' /> : <MyMessages key={index} text={message.text} />
+                            message.isGptMessage ? <GptMessages key={index} text={message.text} /> : <MyMessages key={index} text={message.text} />
                         ))
                     }
 
