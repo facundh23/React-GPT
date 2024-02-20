@@ -19,6 +19,7 @@ export const TextMessageBoxWithSelect = ({ onSendMessage, placeholder, disableCo
     const handleSendMessage = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (message.trim().length === 0) return;
+        if (selectedOption  === '') return;
 
         onSendMessage(message, selectedOption);
         setMessage('')
@@ -34,7 +35,7 @@ export const TextMessageBoxWithSelect = ({ onSendMessage, placeholder, disableCo
                         type='text'
                         autoFocus
                         name='Message'
-                        className=' w-full border rounded-xl text-gray-800 focus:outline-none focus:border-indigo-300 pl-4 h-10'
+                        className={selectedOption === '' ? 'w-full  rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10 border-red-800 border-4 text-red-900'  : 'w-full border rounded-xl text-gray-800 focus:outline-none focus:border-indigo-300 pl-4 h-10'}
                         placeholder={placeholder}
                         autoComplete={disableCorrections ? 'on' : 'off'}
                         autoCorrect={disableCorrections ? 'on' : 'off'}
@@ -46,7 +47,7 @@ export const TextMessageBoxWithSelect = ({ onSendMessage, placeholder, disableCo
                         className='w-2/5 ml-5 border rounded-xl text-gray-800 focus:outline-none focus:border-indigo-300 pl-4 h-10'
                         onChange={(e) => setSelectedOption(e.target.value)}
                     >
-                        <option value="">Opciones</option>
+                        <option  value="">Opciones</option>
                         {
                             options.map((option) => (
                                 <option key={option.id} value={option.id}>{option.text}</option>
