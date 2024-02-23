@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { GptMessages, MyMessages, TypingLoader, TextMessageBox, TextMessageBoxWithSelect } from '../../components';
+import { TextToAudioUseCase } from '../../../core/use-case';
 
 const disclaimer = ` ## ¿Qué audio quieres generar hoy?
 * Todo el audio generado es por AI
@@ -29,7 +30,7 @@ export const TextToAudioPage = () => {
         setMessages((prev) => [...prev, { text: text, isGptMessage: false }]);
 
         //TODO Use case
-        
+        const {ok, message, audioUrl} = await TextToAudioUseCase(text, selectedVoice)
         setIsLoading(false);
 
         // Todo añadir el mensaje isGptMessage en true
