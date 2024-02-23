@@ -24,4 +24,4 @@ export const translateTextuseCase = async (prompt:string, lang:string) => {
             message:'No se pudo traducir'
         };
     }
-}
+}   
